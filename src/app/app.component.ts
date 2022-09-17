@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {map, Observable, startWith, Subject, switchMap, tap} from "rxjs";
+import {map, Observable, startWith, Subject, switchMap} from "rxjs";
 import {ajax} from "rxjs/ajax";
 import {ArrayType, ControlType, ElementTypes, FormElements, GroupType} from "./models";
 import {Clipboard} from "@angular/cdk/clipboard";
@@ -52,8 +52,7 @@ export class AppComponent {
               } else {
                 return []
               }
-            }),
-            tap(console.log)
+            })
           )
         )
       )
@@ -140,10 +139,10 @@ export class AppComponent {
       case "any[]":
         value = value as any[]
         if (value.every((el: unknown) => typeof el === 'number')) {
-        return `[${value.join(', ')}]`
-      } else {
-        return `[${value.map((value: string) => `'${value}'`).join(', ')}]`
-      }
+          return `[${value.join(', ')}]`
+        } else {
+          return `[${value.map((value: string) => `'${value}'`).join(', ')}]`
+        }
       case 'string':
         return ("\'" + value + "\'")
       case 'boolean':
