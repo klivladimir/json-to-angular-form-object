@@ -1,0 +1,81 @@
+{
+  "string": "Hello",
+  "number": 73,
+  "boolean": true,
+  "array_of_strings": [
+    "BMW",
+    "Subaru",
+    "Audi",
+    "Honda"
+  ],
+  "array_of_numbers": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "array_of_similar_objects": [
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    },
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    },
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    },
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    }
+  ],
+  "nested_object": {
+    "name": "Keebler LLC",
+    "company": {
+      "name": "Keebler LLC",
+      "contacts": {
+        "email": "Lucio_Hettinger@annie.ca",
+        "phone": "+7999828828282"
+      },
+      "geo": {
+        "lat": "-31.8129",
+        "lng": "62.5342"
+      },
+      "employee": [
+        {
+          "name": "Chelsey Dietrich",
+          "password": "1234567890",
+          "contacts": {
+            "email": "Lucio_Hettinger@annie.ca"
+          }
+        },
+        {
+          "name": "Chelsey Dietrich",
+          "password": "1234567890",
+          "contacts": {
+            "email": "Lucio_Hettinger@annie.ca"
+          }
+        }
+      ]
+    },
+    "array_of_similar_objects": [
+      {
+        "id": 5,
+        "name": "Chelsey Dietrich",
+        "password": "1234567890"
+      },
+      {
+        "id": 5,
+        "name": "Chelsey Dietrich",
+        "password": "1234567890"
+      }
+    ]
+  }
+}
