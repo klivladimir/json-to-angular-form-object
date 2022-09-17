@@ -19,6 +19,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN  }} 
           build_configuration: production 
-          base_href: https://klivladimir.github.io/json_to_angular_form_object/
+          base_href: https://klivladimir.github.io/json-to-angular-form-object/
           deploy_branch: gh-pages 
           angular_dist_build_folder: dist/json-to-form
