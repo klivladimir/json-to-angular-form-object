@@ -6,7 +6,7 @@
   </div>
   <button type="button" [class]="!file ? 'btn btn-light' : 'btn btn-success'" [disabled]="!file" (click)="processJson()">Process</button>
 </div>
-<div class="flex">
+<div class="flex mobile-column">
   <select class="form-select" aria-label="Default select example" style="width: auto;"
           [formControl]="formStateSettings" (ngModelChange)="load$.next(true)">
     <option [value]="FormStateSettings[FormStateSettings.value]">just value</option>

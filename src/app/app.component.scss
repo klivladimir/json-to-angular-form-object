@@ -9,6 +9,12 @@
     transition: 1s ease-in-out;
     justify-content: space-between;
   }
+  &.mobile-column {
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
 }
 
 .file-upload {
