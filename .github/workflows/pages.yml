@@ -21,4 +21,4 @@ jobs:
           build_configuration: production 
           base_href: /  
           deploy_branch: gh-pages 
-          angular_dist_build_folder: dist
+          angular_dist_build_folder: dist/json_to_angular_form_object
