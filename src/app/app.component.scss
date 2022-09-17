@@ -1,0 +1,38 @@
+.flex {
+  display: flex;
+  gap: 50px;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin-bottom: 1rem;
+
+  &.space {
+    transition: 1s ease-in-out;
+    justify-content: space-between;
+  }
+}
+
+.file-upload {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.generatedForm {
+  border: 1px solid #03a9f46e;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+.toast {
+  height: 40px;
+  color: black;
+  font-size: 1.6rem;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 26px;
+  bottom: 30px;
+}
