@@ -4,7 +4,10 @@
   <div class="mb-3">
     <input class="form-control" accept="application/json" type="file" id="formFile" (input)="onFileChange($event)">
   </div>
-  <button type="button" [class]="!file ? 'btn btn-light' : 'btn btn-success'" [disabled]="!file" (click)="processJson()">Process</button>
+  <button type="button" [class]="!file || wrongFormat ? 'btn btn-light' : 'btn btn-success'"
+          [disabled]="!file || wrongFormat" (click)="processJson()">
+    {{wrongFormat ? 'Wrong format' : 'Process'}}
+  </button>
 </div>
 <div class="flex mobile-column">
   <select class="form-select" aria-label="Default select example" style="width: auto;"
