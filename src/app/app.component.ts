@@ -172,13 +172,11 @@ export class AppComponent {
   onFileChange(event: Event) {
     const {files} = (event.target as HTMLInputElement)
     if (files?.length && files[0].type === 'application/json') {
-      console.log(files)
       this.file = files[0];
       this.wrongFormat = false
     } else {
       this.wrongFormat = true
     }
-    console.log(this.wrongFormat)
   }
 
   processJson() {

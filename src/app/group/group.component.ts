@@ -1,14 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {color} from "../helpers";
 import {GroupType} from "../models";
-import {growInRight} from "../animations";
 
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
-  styleUrls: ['./group.component.scss'],
-  animations: [growInRight]
+  styleUrls: ['./group.component.scss']
 })
 export class GroupComponent {
 
