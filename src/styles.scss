@@ -9,6 +9,16 @@ body {
   min-width: 420px;
 }
 
+::-webkit-scrollbar {
+  width: 1px;
+  background: black;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
 * {
   font-family: monospace;
 }
