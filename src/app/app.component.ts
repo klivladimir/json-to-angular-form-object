@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {map, Observable, startWith, Subject, switchMap} from "rxjs";
+import {map, Observable, shareReplay, startWith, Subject, switchMap, tap} from "rxjs";
 import {ajax} from "rxjs/ajax";
 import {ArrayType, ControlType, ElementTypes, FormElements, GroupType} from "./models";
 import {Clipboard} from "@angular/cdk/clipboard";
@@ -10,7 +10,6 @@ export enum FormStateSettings {
   'value',
   'objectWithoutValue',
   'objectWithValue',
-  'null',
   'empty'
 }
 
@@ -23,8 +22,8 @@ export enum FormStateSettings {
 })
 export class AppComponent {
 
-  formStateSettings = new FormControl('value')
-  typedFormSettings = new FormControl(false)
+  formStateSettingsControl = new FormControl('value')
+  typedFormSettingsControl = new FormControl(false)
 
   load$ = new Subject();
 
@@ -36,6 +35,8 @@ export class AppComponent {
   toastCopied = true;
   wrongFormat = false;
 
+  @ViewChild('jsonElement') private jsonElement!: ElementRef;
+
   get FormStateSettings() {
     return FormStateSettings
   }
@@ -44,18 +45,26 @@ export class AppComponent {
     this.formElements$ = this.load$
       .pipe(
         startWith(true),
-        switchMap(() => ajax.get(this.processedFile)
-          .pipe(
-            map((data) => {
-              this.fileName = this.fileName || 'Example'
-              if (data.response && typeof data.response === 'object') {
-                return this.generate({data: data.response})
-              } else {
-                return []
-              }
-            })
-          )
-        )
+        switchMap(() => ajax.get(this.processedFile)),
+        tap(data => {
+          if (typeof data.response === 'object') {
+            this.jsonElement.nativeElement.innerText = JSON.stringify(data.response, null, 4);
+          }
+        }),
+        map((data) => {
+          this.fileName = this.fileName || 'Example'
+          if (data.response && typeof data.response === 'object') {
+            return this.generate({data: data.response})
+          } else {
+            try {
+              return this.generate({data: JSON.parse(data.response as string)})
+            } catch (err) {
+              console.error('ooooops', err)
+              return []
+            }
+          }
+        }),
+        shareReplay()
       )
   }
 
@@ -126,17 +135,17 @@ export class AppComponent {
   }
 
   addControl({key, value, level, elementType, inputType}: ControlType): ControlType {
+
     let jsonValue = this.formatInputValue(inputType, value)
     let formControlInitialValue = `<span class="value">${this.formControlInitialValue(jsonValue)}</span>`;
-    const type = `<span class="type">${this.typedFormSettings.value ? '&lt;' + inputType + '&gt;' : ''}</span>`
+    const type = `<span class="type">${this.typedFormSettingsControl.value ? '&lt;' + inputType + '&gt;' : ''}</span>`
+
     const controlText = `${key}: new FormControl${type}(${formControlInitialValue}),`
     return {key, value, level, elementType, inputType, text: controlText};
   }
 
   formatInputValue(inputType: ControlType['inputType'], value: ControlType['value']) {
     switch (inputType) {
-      case "null":
-        return `null`
       case "any[]":
         value = value as any[]
         if (value.every((el: unknown) => typeof el === 'number')) {
@@ -154,15 +163,13 @@ export class AppComponent {
   }
 
   formControlInitialValue(jsonValue: any): string {
-    if (this.formStateSettings.value === 'value') {
+    if (this.formStateSettingsControl.value === FormStateSettings[FormStateSettings.value]) {
       return `${jsonValue}`
-    } else if (this.formStateSettings.value === 'objectWithValue') {
+    } else if (this.formStateSettingsControl.value === FormStateSettings[FormStateSettings.objectWithValue]) {
       return `{value: ${jsonValue}}`
-    } else if (this.formStateSettings.value === 'objectWithoutValue') {
+    } else if (this.formStateSettingsControl.value === FormStateSettings[FormStateSettings.objectWithoutValue]) {
       return `{value: ''}`
-    } else if (this.formStateSettings.value === 'null') {
-      return 'null'
-    } else if (this.formStateSettings.value === 'empty') {
+    } else if (this.formStateSettingsControl.value === FormStateSettings[FormStateSettings.empty]) {
       return ''
     } else {
       return ''
@@ -198,5 +205,10 @@ export class AppComponent {
       this.toastCopied = true;
       this.cd.markForCheck();
     }, 1500)
+  }
+
+  onJsonChange(json: HTMLPreElement) {
+    this.processedFile = "data:application/json;base64," + btoa(JSON.stringify(json.innerText));
+    this.load$.next(true)
   }
 }

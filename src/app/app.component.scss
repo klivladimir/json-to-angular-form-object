@@ -9,6 +9,7 @@
     transition: 1s ease-in-out;
     justify-content: space-between;
   }
+
   &.mobile-column {
     @media screen and (max-width: 900px) {
       flex-direction: column;
@@ -23,11 +24,26 @@
   margin-bottom: 2rem;
 }
 
-.generatedForm {
+.block-with-border {
   border: 1px solid #03a9f46e;
   padding: 1rem;
   border-radius: 5px;
   margin-top: 2rem;
+  flex-grow: 1;
+
+  &.json {
+
+    background: #1a2538;
+    box-shadow: 0 0 14px -3px cornflowerblue;
+    pre {
+      outline: none;
+      color: cornflowerblue;
+    }
+  }
+
+  &.form {
+    flex-grow: 1;
+  }
 }
 
 .toast {
