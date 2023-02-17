@@ -1,0 +1,5 @@
+<ng-container *ngFor="let element of _elementsArray">
+  <app-group *ngIf="element?.elementType === elementTypes.group" [element]="asGroup(element)"></app-group>
+  <app-array *ngIf="element?.elementType === elementTypes.array" [element]="asGroup(element)"></app-array>
+  <app-control *ngIf="element?.elementType === elementTypes.control" [control]="asControl(element)"></app-control>
+</ng-container>

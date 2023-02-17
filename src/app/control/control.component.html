@@ -1,0 +1,3 @@
+<div [ngStyle]="{ 'padding-left': 20 * control.level + 'px', color: color(control.level) }">
+  <span [innerHTML]="domSanitizer.bypassSecurityTrustHtml(control.text)"></span>
+</div>

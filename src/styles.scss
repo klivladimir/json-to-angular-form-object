@@ -1,0 +1,38 @@
+@import "bootstrap/scss/bootstrap";
+
+body {
+  background: black;
+  color: #ffffff;
+  padding: 2rem;
+  margin: 0;
+  accent-color: #ff9800;
+  min-width: 420px;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
+* {
+  font-family: monospace;
+}
+
+code {
+  font-size: 1rem !important;
+}
+
+.value {
+  color: lightsteelblue;
+}
+
+.type {
+  color: darksalmon;
+}
+
+
+

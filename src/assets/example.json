@@ -1,0 +1,29 @@
+{
+  "string": "Hello",
+  "number": 73,
+  "boolean": true,
+  "array_of_strings": ["BMW", "Subaru", "Audi", "Honda"],
+  "array_of_numbers": [1, 2, 3, 4],
+  "array_of_similar_objects": [
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    },
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    },
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    },
+    {
+      "id": 5,
+      "name": "Chelsey Dietrich",
+      "password": "1234567890"
+    }
+  ]
+}

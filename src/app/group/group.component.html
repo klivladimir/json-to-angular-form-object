@@ -1,0 +1,9 @@
+<code [ngStyle]="{ 'padding-left': 20 * element.level + 'px', color: color(element.level) }">
+  {{ element.key | lowercase }}: new FormGroup(
+  <code>&#123;</code>
+  <br />
+  <app-form [elementsArray]="element.children"></app-form>
+  <code [ngStyle]="{ 'padding-left': 20 * element.level + 'px' }">&#125;</code>
+  ),
+  <br />
+</code>

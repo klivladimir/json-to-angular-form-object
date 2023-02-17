@@ -1,0 +1,24 @@
+name: gh-pages-update
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: 
+    - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Angular Deploy gh-pages Actions
+        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN  }} 
+          build_configuration: production 
+          base_href: https://klivladimir.github.io/json-to-angular-form-object/
+          deploy_branch: gh-pages 
+          angular_dist_build_folder: dist/json-to-form

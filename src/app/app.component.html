@@ -1,0 +1,76 @@
+<h1 style="margin-bottom: 2rem">JSON to Angular Form</h1>
+
+<section class="flex">
+  <div class="mb-3">
+    <input class="form-control" id="formFile" (input)="onFileChange($event)" accept="application/json" type="file" />
+  </div>
+  <button
+    [class]="!file || wrongFormat ? 'btn btn-light' : 'btn btn-success'"
+    [disabled]="!file || wrongFormat"
+    (click)="processJson()"
+    type="button"
+  >
+    {{ wrongFormat ? 'Wrong file extension' : 'Process' }}
+  </button>
+</section>
+
+<section class="flex mobile-column">
+  <select
+    class="form-select"
+    [formControl]="formStateSettingsControl"
+    (ngModelChange)="load$.next(true)"
+    aria-label="Default select example"
+    style="width: auto"
+  >
+    <option [value]="FormStateSettings[FormStateSettings.value]">just value</option>
+    <option [value]="FormStateSettings[FormStateSettings.objectWithValue]">object with value property</option>
+    <option [value]="FormStateSettings[FormStateSettings.objectWithoutValue]">object without value</option>
+    <option [value]="FormStateSettings[FormStateSettings.empty]">empty</option>
+  </select>
+
+  <div class="form-check" style="flex-shrink: 0">
+    <input
+      class="form-check-input"
+      id="types"
+      [formControl]="typedFormSettingsControl"
+      (ngModelChange)="load$.next(true)"
+      type="checkbox"
+      value=""
+    />
+    <label class="form-check-label" for="types">Add types for controls (since Angular 14)</label>
+  </div>
+</section>
+
+<main>
+  <div class="block-with-border json">
+    <header>
+      <h2>JSON</h2>
+      <h5>You can past JSON here or upload file</h5>
+    </header>
+    <pre #jsonElement (input)="onJsonChange(jsonElement)" contenteditable="true" spellcheck="false"></pre>
+  </div>
+  <div class="block-with-border form">
+    <header class="flex space">
+      <h2>Angular form object</h2>
+      <button class="btn btn-light" (click)="copyToClipboard(code)" type="button">Copy to clipboard</button>
+    </header>
+    <div #code>
+      <ng-container *ngIf="formElements$ | async as elements">
+        <ng-container *ngIf="elements.length > 0; else parseError">
+          myForm = new FormGroup(
+          <code>
+            <span>&#123;</span>
+            <br />
+          </code>
+          <app-form [elementsArray]="elements"></app-form>
+          <code>&#125;</code>
+          )
+        </ng-container>
+
+        <ng-template #parseError>Cannot parse JSON</ng-template>
+      </ng-container>
+    </div>
+  </div>
+</main>
+
+<div class="toast" [hidden]="toastCopied">Copied</div>
